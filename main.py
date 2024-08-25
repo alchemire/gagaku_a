@@ -2,20 +2,11 @@ import streamlit as st
 import pandas as pd
 import os
 import glob
-<<<<<<< HEAD
-=======
-import pygame
->>>>>>> 004d29bc2bf0708670098cbe9267277236681e7b
 import math
 import time
 import re
 
 
-<<<<<<< HEAD
-=======
-pygame.mixer.init()
-
->>>>>>> 004d29bc2bf0708670098cbe9267277236681e7b
 def rotate_point(x, y, theta):
     cos_theta = math.cos(theta)
     sin_theta = math.sin(theta)
@@ -36,10 +27,7 @@ mp3_files = glob.glob(os.path.join(folder_path, '*.mp3'))
 sorted_mp3_files = sorted(mp3_files, key=lambda x: int(os.path.basename(x).split('.')[0]))
 file_names =[os.path.splitext(os.path.basename(file))[0] for file in mp3_files]
 sorted_file_names = sorted(file_names, key=lambda x: int(os.path.basename(x).split('.')[0]))
-<<<<<<< HEAD
 music_times = [4, 4, 5, 6, 2, 4, 9, 4, 4, 5, 6, 2, 4, 9, 10, 10, 10, 10, 2, 4, 9, 4, 4, 5, 6, 2, 4, 9, 4, 4, 5, 6, 2, 4, 9, 4, 4, 5, 6, 2, 4, 9, 4, 4, 5, 6, 2, 4, 9]
-=======
->>>>>>> 004d29bc2bf0708670098cbe9267277236681e7b
 
 data = {
     "-3":[0, 1, 2, 3, 4, 5, 6],
@@ -57,7 +45,6 @@ col1, col2 = st.columns([2, 1], vertical_alignment="center")
 col1.write(df)
 col2.image("picture/曼荼羅.jpg")
 st.snow()
-<<<<<<< HEAD
 
 def play_audio(file_path):
     st.audio(file_path, format="audio/mp3", start_time=0, autoplay=True)
@@ -90,41 +77,6 @@ def main():
             play_audio(sorted_mp3_files[current_track_index])
             x_new, y_new = rotate_point(x_new, y_new, math.radians(theta))
 
-=======
-def main():
-    global should_stop_iteration
-    should_stop_iteration = False
-
-    with st.form("your-form"):
-        column = st.slider("曲の[ 複雑さ ]←  →[ 単純さ ]（横軸の値を指定）", -3, 3, -1)
-        row = st.slider("テンポの[ 遅さ ]←  →[ 速さ ]（縦軸の値を指定）", -3, 3, -1)
-        theta = st.slider("反時計回りで回転（数字の値だけ〇度回転）", 0, 360, 90)
-        play = st.slider("曲数（1曲平均5分）", 0, 25, 5)
-        submitted = st.form_submit_button("開始")
-        stop = st.form_submit_button("中止")
-    if submitted:
-        should_stop_iteration = False
-        current_track_index = df.loc[str(row), str(column)]
-        pygame.mixer.music.load(sorted_mp3_files[current_track_index])
-        pygame.mixer.music.play()
-        st.title(sorted_file_names[current_track_index])
-        x_new, y_new = rotate_point(row, column, math.radians(theta))
-
-        for _ in range(play-1):
-            while pygame.mixer.music.get_busy() == True:
-                time.sleep(0.5)
-            if should_stop_iteration:
-                break
-            current_track_index = df.loc[str(x_new), str(y_new)]
-            pygame.mixer.music.load(sorted_mp3_files[current_track_index])
-            pygame.mixer.music.play()
-            st.title(sorted_file_names[current_track_index])
-            x_new, y_new = rotate_point(x_new, y_new, math.radians(theta))
-        should_stop_iteration = True
-    if stop:
-        should_stop_iteration = False
-
->>>>>>> 004d29bc2bf0708670098cbe9267277236681e7b
 if __name__ == "__main__":
     main()
 
